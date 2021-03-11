@@ -26,7 +26,7 @@ a {
 }
 
 .modal-content {
-  max-height: 400px;
+  max-height: 80vh;
   overflow-y: scroll;
 }
 
