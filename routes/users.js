@@ -43,7 +43,7 @@ router.post('/register', async (req, res) => {
   })
   
   // res.json(newUser);
-
+  req.session.user = newUser
   res.redirect('/notes')
 
 
@@ -80,7 +80,9 @@ if(!succesfulLogin) {
 }
 
 // gets login from sequelize database
+
 req.session.user = user;
+
 
 res.redirect('/Notes')
 })

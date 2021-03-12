@@ -1,4 +1,5 @@
 'use strict';
+// const { userInfo } = require('node:os');
 const {
   Model
 } = require('sequelize');
@@ -11,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Note.belongsTo(models.User)
     }
   };
   Note.init({
