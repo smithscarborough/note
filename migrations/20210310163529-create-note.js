@@ -34,6 +34,13 @@ module.exports = {
           model: 'Users',
           key: 'id'
         }
+      },
+      ArchiveId:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Archives',
+          key: 'id'
+        }
       }
     });
   },

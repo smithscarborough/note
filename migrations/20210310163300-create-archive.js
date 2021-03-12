@@ -8,13 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      category: {
-        type: Sequelize.STRING
-      },
-      noteMessage: {
-        type: Sequelize.STRING
-      },
-      author: {
+      title: {
+        unique: true,
         type: Sequelize.STRING
       },
       public: {
@@ -27,7 +22,14 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      UserId:{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

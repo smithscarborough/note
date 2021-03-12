@@ -12,6 +12,7 @@ const store = new SequelizeStore({db: db.sequelize })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
+const categoryRouter = require('./routes/catergory')
 var app = express();
 
 app.engine('html', es6Renderer)
@@ -39,6 +40,7 @@ store.sync()
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
+app.use('/category', categoryRouter)
 
 
 module.exports = app;
