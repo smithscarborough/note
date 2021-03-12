@@ -8,11 +8,15 @@ const db = require('./models');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const store = new SequelizeStore({db: db.sequelize })
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+const notesRouter = require('./routes/notes');
 var app = express();
 
+app.engine('html', es6Renderer)
+app.set('views', 'templates');
+app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,8 +38,7 @@ store.sync()
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.engine('html', es6Renderer)
-app.set('views', 'templates');
-app.set('view engine', 'html');
+app.use('/notes', notesRouter);
+
 
 module.exports = app;
