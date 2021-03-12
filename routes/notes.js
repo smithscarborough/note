@@ -36,6 +36,17 @@ router.post('/api/create/', async (req, res) => {
 
 
 // req.session.note = newNote;
-
 })
+
+router.get('/user/allPost', (req,res) => {
+   db.Note.findAll({
+       where: {
+           UserId: req.session.user.id,
+       },
+   }).then(note => {
+       res.json(note)
+   })
+})
+
+
 module.exports = router;
