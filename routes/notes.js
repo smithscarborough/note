@@ -31,20 +31,11 @@ router.post('/', async (req, res) => {
         author: `${req.session.user.firstName} ${req.session.user.lastName}`,
         category: req.body.category,
         public: true,
-        UserId: req.session.user.id
+        UserId: req.session.user.id,
+        // ArchiveId: req.session.user.id
       })
     res.redirect('/notes');
 
-     // Finds "note" in database.
-//  const note = await db.Note.findAll({
-//     where: {
-//       category: req.body.category,
-//       noteMessage: req.body.noteMessage
-//     }
-//   })
-
-
-// req.session.note = newNote;
 })
 
 router.get('/user/allPost', (req,res) => {

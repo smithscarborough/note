@@ -12,12 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Archive.belongsTo(models.User);
+      Archive.hasMany(models.Note)
+
     }
   };
   Archive.init({
-    category: DataTypes.STRING,
-    noteMessage: DataTypes.STRING,
-    author: DataTypes.STRING,
+    title: {
+      type:DataTypes.STRING,
+      unique:true
+    },
     public: DataTypes.BOOLEAN
   }, {
     sequelize,
