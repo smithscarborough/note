@@ -114,17 +114,13 @@
                             <form action="/action_page.php">
                                 <label for="category">Archive</label>
                                 <select name="category" id="category">
-                                    <option value="cat"></option>
-                                    <option value="cat"></option>
-                                    <option value="cat"></option>
-                                    <option value="cat"></option>
+                                    ${archives.map((archive) => {
+                                        return `
+                                    <option value="cat">${archive.title}</option>`
+                                }).join('')}
                                 </select>
                             </form>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut
-                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                ullamco
-                                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
