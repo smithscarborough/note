@@ -49,17 +49,3 @@ let noteContainer = `
 let closeNoteContainer = function () {
     document.querySelector('#createNoteContainer').style.display = "none";
 }
-
-const data = axios.get('/notes/user/allPost')
-
-
-function renderNotes(e, template, location) {
-    e.preventDefault
-    const node = document.querySelector(location);
-    if (!node) {
-        return
-    }
-    node.innerHTML = template
-}
-
-const noteTemplate = `<div class="note">${note.newNote}</div>`

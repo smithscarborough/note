@@ -3,6 +3,19 @@ var router = express.Router();
 const db = require("../models")
 const bcrypt = require('bcrypt');
 
+// router.get('/', async function(req, res, next) {
+//   const users = await db.User.findAll({
+//     where: {
+//       UserId: req.session.user.id
+//     }
+//   })
+//   res.render('notes', {
+//     locals: {
+//       users
+//     }
+//   });
+// });
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   db.User.findAll()
@@ -85,6 +98,13 @@ req.session.user = user;
 
 
 res.redirect('/Notes')
+})
+
+router.get('/logout', (req, res) => {
+  // clear user data on session to logout
+  req.session.user = null
+
+  res.redirect('/')
 })
 
 module.exports = router;
