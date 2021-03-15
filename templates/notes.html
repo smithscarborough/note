@@ -17,21 +17,22 @@
 <body class="w3-theme-l5">
 
     <!-- Navbar -->
-    <div class="w3-top">
-        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-                href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i
-                    class="fa fa-home w3-margin-right"></i>Hello, firstname!</a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i
-                    class="fa fa-globe"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-                title="Account Settings"><i class="fa fa-user"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i
-                    class="fa fa-envelope"></i></a>
-        </div>
-    </div>
-
+    ${notes.map((note) => {
+        return `
+        <div class="w3-top">
+            <div class="w3-bar w3-theme-d2 w3-left-align w3-large notesNavbar">
+                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+                    href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+                <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4 notesNavbarGreeting"><i
+                        class="fa fa-home w3-margin-right"></i>Hello, ${note.author}!</a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i
+                        class="fa fa-globe"></i></a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+                    title="Account Settings"><i class="fa fa-user"></i></a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>`
+        }).join('')}
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
         <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
@@ -54,9 +55,9 @@
                                     src="/images/plus.png" class="w3-circle plusBtn" style="height:106px;width:106px"
                                     alt="plus symbol"></a></p>
                         <hr>
-                        <p>Notes: 0</p>
-                        <p>Categories: 0</p>
-                        <p>Signed Up: March 10, 2021</p>
+                            <p>Notes: ${notes.length}</p>
+                            <p>Categories: ${archives.length}</p>
+                            <p>Signed Up: ${user.createdAt}</p>
                     </div>
                 </div>
                 <br>
@@ -88,22 +89,19 @@
                 <div id="createNoteContainer" class="w3-row-padding">
 
                 </div>
-
                 ${notes.map((note) => {
                     return ` <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-                  
+    
                         <span class="w3-right w3-opacity">${note.createdAt}</span>
-                        <h4>Bookmark: Bookmark Name</h4><br>
+                        <h4>Bookmark: ${note.category}</h4><br>
                         <hr class="w3-clear">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>${note.noteMessage}</p>
                         <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-pencil"></i>
                             Edit</button>
                         <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>
                             Delete</button>
                     </div>`
-                }).join('')}
+                    }).join('')}
                
                 <!-- End Middle Column -->
             </div>

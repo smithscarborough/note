@@ -3,14 +3,15 @@ var router = express.Router();
 const db = require('../models')
 /* GET notes page. */
 router.get('/', async function(req, res, next) {
-  const notes = await db.Note.findAll({
-    where: {
-      UserId: req.session.user.id
-    }
+  const user = await db.User.findByPk(req.session.user.id,{
+    include: [db.Note, db.Archive],
+    order: [[db.Note, 'createdAt', 'DESC']]
   })
   res.render('notes', {
     locals: {
-      notes
+      user,
+      notes: user.Notes,
+      archives: user.Archives
     }
   });
 });
@@ -35,6 +36,15 @@ router.post('/', async (req, res) => {
         // ArchiveId: req.session.user.id
       })
     res.redirect('/notes');
+
+     // Finds "note" in database.
+//  const note = await db.Note.findAll({
+//     where: {
+//       category: req.body.category,
+//       noteMessage: req.body.noteMessage
+//     }
+//   })
+
 
 })
 
