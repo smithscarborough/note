@@ -89,19 +89,22 @@
 
                 </div>
 
-                <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-
-                    <span class="w3-right w3-opacity">16 min</span>
-                    <h4>Bookmark: Bookmark Name</h4><br>
-                    <hr class="w3-clear">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <!-- <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-pencil"></i>
-                        Edit</button>
-                    <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>
-                        Delete</button> -->
-                </div>
+                ${notes.map((note) => {
+                    return ` <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+                  
+                        <span class="w3-right w3-opacity">${note.createdAt}</span>
+                        <h4>Bookmark: Bookmark Name</h4><br>
+                        <hr class="w3-clear">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-pencil"></i>
+                            Edit</button>
+                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>
+                            Delete</button>
+                    </div>`
+                }).join('')}
+               
                 <!-- End Middle Column -->
             </div>
             <!-- Right Column -->

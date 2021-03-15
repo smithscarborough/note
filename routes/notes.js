@@ -2,13 +2,22 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models')
 /* GET notes page. */
-router.get('/', function(req, res, next) {
-  res.render('notes');
+router.get('/', async function(req, res, next) {
+  const notes = await db.Note.findAll({
+    where: {
+      UserId: req.session.user.id
+    }
+  })
+  res.render('notes', {
+    locals: {
+      notes
+    }
+  });
 });
 
 
 
-router.post('/api/create/', async (req, res) => {
+router.post('/', async (req, res) => {
     //checks for a text in the post message box
     if (!req.body.noteMessage || !req.body.category) {
       return res.status(422).render('error', {
@@ -24,7 +33,7 @@ router.post('/api/create/', async (req, res) => {
         public: true,
         UserId: req.session.user.id
       })
-    res.json(newNote);
+    res.redirect('/notes');
 
      // Finds "note" in database.
 //  const note = await db.Note.findAll({

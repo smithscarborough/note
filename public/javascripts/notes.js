@@ -29,7 +29,7 @@ let renderNoteContainer = function (template, selector) {
 };
 let noteContainer = `
 <div class="w3-col m12">
-                <form action="/notes/api/create" method="POST">
+                <form action="/notes" method="POST">
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container w3-padding">
                         <h6 class="w3-opacity">What's on your mind...</h6>
@@ -37,7 +37,7 @@ let noteContainer = `
                         <div class="text">
                         <textarea name="noteMessage" style="min-width:100%"placeholder="Write your thoughts here..." id="messageBox" rows="8"></textarea>
                         </div>
-                        <button id="postButton" type="submit" class="w3-button w3-theme"><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
+                        <button id="postButton" type="submit" class="w3-button w3-theme" onclick="renderNotes(noteTemplate, '#createNoteContainer')" ><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
                             Create</button>
                     </div>
                 </div>
@@ -51,3 +51,15 @@ let closeNoteContainer = function () {
 }
 
 const data = axios.get('/notes/user/allPost')
+
+
+function renderNotes(e, template, location) {
+    e.preventDefault
+    const node = document.querySelector(location);
+    if (!node) {
+        return
+    }
+    node.innerHTML = template
+}
+
+const noteTemplate = `<div class="note">${note.newNote}</div>`
