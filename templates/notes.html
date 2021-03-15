@@ -49,8 +49,10 @@
                 <!-- Profile -->
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container">
-                        <p class="w3-center"><a href="" onclick="renderNoteContainer(noteContainer, '#createNoteContainer')"><img src="/public/images/plus.png" class="w3-circle plusBtn"
-                                    style="height:106px;width:106px" alt="plus symbol"></a></p>
+                        <p class="w3-center"><a href=""
+                                onclick="renderNoteContainer(noteContainer, '#createNoteContainer')"><img
+                                    src="/images/plus.png" class="w3-circle plusBtn" style="height:106px;width:106px"
+                                    alt="plus symbol"></a></p>
                         <hr>
                         <p>Notes: 0</p>
                         <p>Categories: 0</p>
@@ -83,9 +85,10 @@
             <!-- Middle Column -->
             <div class="w3-col m7 middleContainer">
 
-                <div id="createNoteContainer"class="w3-row-padding">
-                    
+                <div id="createNoteContainer" class="w3-row-padding">
+
                 </div>
+
                 ${notes.map((note) => {
                     return ` <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
                   
@@ -110,10 +113,20 @@
                     <div class="w3-container bookmarkTitle">
                         <h4>Bookmark</h4>
                         <div class="bookmarkContainer">
-                            <p><strong>Category Name</strong></p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <form action="/action_page.php">
+                                <label for="category">Archive</label>
+                                <select name="category" id="category">
+                                    <option value="cat"></option>
+                                    <option value="cat"></option>
+                                    <option value="cat"></option>
+                                    <option value="cat"></option>
+                                </select>
+                            </form>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
                     </div>
                 </div>
@@ -131,7 +144,7 @@
     <br>
 
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js'></script>
 </body>
 
 </html>
