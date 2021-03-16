@@ -20,32 +20,23 @@ function openNav() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
-// Used to display the note container on click of plus image button
-let renderNoteContainer = function (template, selector) {
-    event.preventDefault()
-    let node = document.querySelector(selector);
-    if (!node) return;
-    node.innerHTML = template;
-};
-let noteContainer = `
-<div class="w3-col m12">
-                <form action="/notes" method="POST">
-                <div class="w3-card w3-round w3-white">
-                    <div class="w3-container w3-padding">
-                        <h6 class="w3-opacity">What's on your mind...</h6>
-                        <input type="text" placeholder="Write your topic here..." name="category">
-                    <div class="text">
-                        <textarea name="noteMessage" style="min-width:100%"placeholder="Write your thoughts here..." id="messageBox" rows="8"></textarea>
-                        </div>
-                        <button id="postButton" type="submit" class="w3-button w3-theme categorySubmit" onclick="renderNotes(noteTemplate, '#createNoteContainer')" ><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
-                            Create</button>
-                    </div>
-                </div>
-                </form>
-            </div>
-`
+
 
 //Used to close the post button after note has been posted and added to database
 let closeNoteContainer = function () {
     document.querySelector('#createNoteContainer').style.display = "none";
 }
+
+document.querySelectorAll('.editButton').forEach((editButton)=> {
+    editButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const editForm = document.getElementById(`editForm-${editButton.dataset.id}`)
+        editForm.style.display = 'block';
+        editButton.style.display = 'none';
+    })
+})
+
+document.getElementById('addButton').addEventListener('click', (event) => {
+    event.preventDefault();
+    document.querySelector('#createNoteContainer').style.display = "block";
+})

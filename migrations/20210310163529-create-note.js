@@ -14,9 +14,6 @@ module.exports = {
       author: {
         type: Sequelize.STRING
       },
-      category: {
-        type: Sequelize.STRING
-      },
       public: {
         type: Sequelize.BOOLEAN
       },

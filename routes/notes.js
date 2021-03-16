@@ -4,7 +4,10 @@ const db = require('../models')
 /* GET notes page. */
 router.get('/', async function(req, res, next) {
   const user = await db.User.findByPk(req.session.user.id,{
-    include: [db.Note, db.Archive],
+    include: [{
+      model: db.Note, 
+      include: db.Archive
+    }, db.Archive],
     order: [[db.Note, 'createdAt', 'DESC']]
   })
   res.render('notes', {
@@ -15,8 +18,8 @@ router.get('/', async function(req, res, next) {
     }
   });
 
-  console.log('ARHIVES =====',user.Archives)
-  console.log('notes=======', user.Notes)
+  // console.log('ARHIVES =====',user.Archives)
+  // console.log('notes=======', user.Notes)
 });
 
 
@@ -33,10 +36,9 @@ router.post('/', async (req, res) => {
     const newNote = await db.Note.create({
         noteMessage: req.body.noteMessage,
         author: `${req.session.user.firstName} ${req.session.user.lastName}`,
-        category: req.body.category,
         public: true,
         UserId: req.session.user.id,
-        // ArchiveId: req.session.user.id
+        ArchiveId: req.body.category
       })
     res.redirect('/notes');
 
@@ -61,6 +63,18 @@ router.get('/user/allPost', (req,res) => {
    })
 })
 
+router.post('/:id/delete', async (req,res) => {
+  const note = await db.Note.findByPk(req.params.id)
+  await note.destroy()
+  res.redirect('/notes');
+})
 
+router.post('/:id/edit', async (req, res) => {
+  const editNote = await db.Note.findByPk(req.params.id)
+  editNote.ArchiveId = req.body.category;
+  editNote.noteMessage = req.body.noteMessage;
+  await editNote.save()
+  res.redirect('/notes');
+})
 
 module.exports = router;
