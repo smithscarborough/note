@@ -25,7 +25,7 @@ let renderNoteContainer = function (template, selector) {
     event.preventDefault()
     let node = document.querySelector(selector);
     if (!node) return;
-        node.innerHTML = template;
+    node.innerHTML = template;
 };
 let noteContainer = `
 <div class="w3-col m12">
@@ -34,10 +34,10 @@ let noteContainer = `
                     <div class="w3-container w3-padding">
                         <h6 class="w3-opacity">What's on your mind...</h6>
                         <input type="text" placeholder="Write your topic here..." name="category">
-                        <div class="text">
+                    <div class="text">
                         <textarea name="noteMessage" style="min-width:100%"placeholder="Write your thoughts here..." id="messageBox" rows="8"></textarea>
                         </div>
-                        <button id="postButton" type="submit" class="w3-button w3-theme" onclick="renderNotes(noteTemplate, '#createNoteContainer')" ><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
+                        <button id="postButton" type="submit" class="w3-button w3-theme categorySubmit" onclick="renderNotes(noteTemplate, '#createNoteContainer')" ><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
                             Create</button>
                     </div>
                 </div>

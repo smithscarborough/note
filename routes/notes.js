@@ -14,13 +14,16 @@ router.get('/', async function(req, res, next) {
       archives: user.Archives
     }
   });
+
+  console.log('ARHIVES =====',user.Archives)
+  console.log('notes=======', user.Notes)
 });
 
 
-
+//localhost:3000/notes
 router.post('/', async (req, res) => {
     //checks for a text in the post message box
-    if (!req.body.noteMessage || !req.body.category) {
+    if (!req.body.category) {
       return res.status(422).render('error', {
         locals: { error: 'please write a note' }
       });

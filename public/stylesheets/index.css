@@ -7,6 +7,12 @@ body {
   background-position: 50% 0;
 }
 
+.siteTitle {
+  font-size: 65px;
+  color: rgb(219,220,189);
+  
+}
+
 a {
   color: #00B7FF;
 }
@@ -18,11 +24,16 @@ a {
 
 }
 
+
 .loginText {
   font-size: 50px;
+  color: rgb(219,220,189);
+  justify-content: start;
 }
+
 .signupText {
   font-size: 50px;
+  color: rgb(219,220,189);
 }
 
 .modal-content {
