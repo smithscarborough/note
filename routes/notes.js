@@ -3,6 +3,9 @@ var router = express.Router();
 const db = require('../models')
 /* GET notes page. */
 router.get('/', async function(req, res, next) {
+  if(!req.session.user) {
+    return res.redirect('/');
+  }
   const user = await db.User.findByPk(req.session.user.id,{
     include: [{
       model: db.Note, 

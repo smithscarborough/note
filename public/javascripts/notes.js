@@ -40,3 +40,27 @@ document.getElementById('addButton').addEventListener('click', (event) => {
     event.preventDefault();
     document.querySelector('#createNoteContainer').style.display = "block";
 })
+
+const bookmarkCategory = document.querySelector('#bookmarkCategory');
+
+bookmarkCategory.addEventListener('change', () => {
+    updateBookmarkColumn(bookmarkCategory.value)
+})
+
+function updateBookmarkColumn(id) {
+    const bookmarkNotes = document.getElementById('bookmarkNotes');
+    bookmarkNotes.innerHTML = 'loading...'
+    fetch(`/api/archive/${id}`)
+    .then(res => res.json())
+    .then(data => {
+        const html = data.Notes.map(note => {
+            return `
+                <p>${note.noteMessage}</p>
+            `
+        }).join('')
+        bookmarkNotes.innerHTML = html;
+    })
+}
+
+
+updateBookmarkColumn(bookmarkCategory.value);

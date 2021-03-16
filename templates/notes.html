@@ -143,18 +143,18 @@
                     <div class="w3-container bookmarkTitle">
                         <h4>Bookmark</h4>
                         <div class="bookmarkContainer">
-                            <form action="/category" method="GET">
+                
 
                                 <label for="category">Archive</label>
-                                <select name="category"id="category">
+                                <select name="category"id="bookmarkCategory" value="${archives[0].id}">
                                     ${archives.map(category => {
-                                    return` <option value=${category.title}>${category.title}</option>`
+                                    return` <option value=${category.id}>${category.title}</option>`
                                 }).join('')}
                                 </select>
-                            </form>
-                            ${notes.map((note) => {
-                            return `<p>${note.noteMessage}</p>`
-                            }).join('')}
+                          
+                            <div id="bookmarkNotes">
+                                loading...
+                            </div>
                         </div>
                     </div>
                 </div>
