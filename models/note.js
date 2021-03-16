@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   Note.init({
     noteMessage: DataTypes.STRING,
     author: DataTypes.STRING,
-    category: DataTypes.STRING,
     public: DataTypes.BOOLEAN
   }, {
     sequelize,
