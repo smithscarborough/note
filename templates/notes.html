@@ -111,16 +111,15 @@
                     <div class="w3-container bookmarkTitle">
                         <h4>Bookmark</h4>
                         <div class="bookmarkContainer">
-                            <form action="/action_page.php">
+                            <form action="/notes">
                                 <label for="category">Archive</label>
                                 <select name="category" id="category">
                                     ${archives.map((archive) => {
                                         return `
                                     <option value="cat">${archive.title}</option>`
-                                }).join('')}
                                 </select>
                             </form>
-                            <p></p>
+                            <p>${archive.Note.noteMessage}</p>}).join('')}
                         </div>
                     </div>
                 </div>
