@@ -11,28 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="/javascripts/notes.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" defer></script>
     <title>Bulb Notes</title>
 </head>
 
-<body class="w3-theme-l5">
+<body class="">
 
     <!-- Navbar -->
-    ${notes.map((note) => {
-        return `
-        <div class="w3-top">
-            <div class="w3-bar w3-theme-d2 w3-left-align w3-large notesNavbar">
-                <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
-                    href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-                <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4 notesNavbarGreeting"><i
-                        class="fa fa-home w3-margin-right"></i>Hello, ${note.author}!</a>
-                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i
-                        class="fa fa-globe"></i></a>
-                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-                    title="Account Settings"><i class="fa fa-user"></i></a>
-                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </div>`
-        }).join('')}
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large notesNavbar">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+                href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-theme-d4 notesNavbarGreeting"><i
+                    class="fa fa-home w3-margin-right"></i>Hello, <strong>${user.firstName} ${user.lastName}</strong>!</a>
+            
+            <a href="/users/logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i
+                    class="fas fa-sign-out-alt"></i> <strong>Logout</strong></a>
+        </div>
+    </div>
     <!-- Navbar on small screens -->
     <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
         <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
@@ -50,14 +46,14 @@
                 <!-- Profile -->
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container">
-                        <p class="w3-center"><a href=""
-                                onclick="renderNoteContainer(noteContainer, '#createNoteContainer')"><img
+                        <p class="w3-center"><a id="addButton" href="">
+                            <img 
                                     src="/images/plus.png" class="w3-circle plusBtn" style="height:106px;width:106px"
                                     alt="plus symbol"></a></p>
                         <hr>
-                            <p>Notes: ${notes.length}</p>
-                            <p>Categories: ${archives.length}</p>
-                            <p>Signed Up: ${user.createdAt}</p>
+                        <p>Notes: ${notes.length}</p>
+                        <p>Categories: ${archives.length}</p>
+                        <p>Signed Up: ${user.createdAt}</p>
                     </div>
                 </div>
                 <br>
@@ -67,14 +63,15 @@
                     <div class="w3-white">
                         <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
                                 class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Add Note Category</button>
-                        <div id="Demo1" class="w3-hide w3-container">
-                            <p>Some text..</p>
-                        </div>
-                        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
-                                class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Categories</button>
-                        <div id="Demo2" class="w3-hide w3-container">
-                            <p>Some other text..</p>
-                        </div>
+                        <form action="/category" method="POST">
+                            <div id="Demo1" class="w3-hide w3-container">
+                                <div class="input-group flex-nowrap">
+                                    <input name="category" type="text" class="form-control" placeholder="Enter Category"
+                                        aria-label="Username" aria-describedby="addon-wrapping">
+                                    <button class="categorySubmit" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <br>
@@ -86,40 +83,78 @@
             <!-- Middle Column -->
             <div class="w3-col m7 middleContainer">
 
-                <div id="createNoteContainer" class="w3-row-padding">
-
+                <div id="createNoteContainer" class="w3-row-padding" style="display: none;">
+                    <div class="w3-col m12">        
+                        <div class="w3-card w3-round w3-white">
+                            <div class="w3-container w3-padding">
+                                <h6 class="w3-opacity">What's on your mind...</h6>
+                                <form action="/notes" method="POST">
+                                    <h8>Pick your category...</h8>
+                                <select name="category"id="category">
+                                        ${archives.map(category => {
+                                        return` <option value=${category.id}>${category.title}</option>`
+                                    }).join('')}
+                                    </select>
+                            <div class="text">
+                                <textarea name="noteMessage" style="min-width:100%"placeholder="Write your thoughts here..." id="messageBox" rows="8"></textarea>
+                                </div>
+                                <button id="postButton" type="submit" class="w3-button w3-theme categorySubmit" onclick="renderNotes(noteTemplate, '#createNoteContainer')" ><i class="fa fa-pencil" onclick="closeNoteContainer()"></i>
+                                    Create</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
                 ${notes.map((note) => {
-                    return ` <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-    
-                        <span class="w3-right w3-opacity">${note.createdAt}</span>
-                        <h4>Bookmark: ${note.category}</h4><br>
-                        <hr class="w3-clear">
-                        <p>${note.noteMessage}</p>
-                        <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-pencil"></i>
-                            Edit</button>
-                        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>
-                            Delete</button>
-                    </div>`
-                    }).join('')}
-               
+                return ` <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+
+                    <span class="w3-right w3-opacity">${note.createdAt}</span>
+                    <h4><img src="/images/bulb.png" alt="Avatar" class="avatar" style="width: 10%;">: ${note.Archive.title}</h4><br>
+                    <hr class="w3-clear">
+                    <p class="noteMessage">${note.noteMessage}</p>
+                    <form id="editForm-${note.id}"action="/notes/${note.id}/edit" method='POST' style='display: none;'>
+
+                            <h8>Pick your category...</h8>
+                        <select name="category"id="category" value="${note.ArchiveId}">
+                                ${archives.map(category => {
+                                return` <option value=${category.id}>${category.title}</option>`
+                            }).join('')}
+                            </select>
+                    <div class="text">
+                        <textarea name="noteMessage" style="min-width:100%"placeholder="Write your thoughts here..." id="messageBox" rows="8">${note.noteMessage}</textarea>
+                        </div>
+                        <button id="postButton-${note.id}" type="submit" class="w3-button w3-theme categorySubmit"><i class="fa fa-pencil"></i>
+                            Save</button>
+                            </form>
+                    <button data-id="${note.id}" type="button" class="editButton w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-pencil"></i>
+                        Edit</button>
+                        <form action="/notes/${note.id}/delete" method='POST'>
+                    <button type="submit" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>
+                        Delete</button>
+                    </form>
+                </div>`
+                }).join('')}
+
                 <!-- End Middle Column -->
             </div>
             <!-- Right Column -->
-            <div class="w3-col m2">
+            <div class="w3-col m2 rightColumnContainer">
                 <div class="w3-card w3-round w3-white w3-center">
                     <div class="w3-container bookmarkTitle">
                         <h4>Bookmark</h4>
                         <div class="bookmarkContainer">
-                            <form action="/notes">
+                
+
                                 <label for="category">Archive</label>
-                                <select name="category" id="category">
-                                    ${archives.map((archive) => {
-                                        return `
-                                    <option value="cat">${archive.title}</option>`
+                                <select name="category"id="bookmarkCategory" value="${archives[0].id}">
+                                    ${archives.map(category => {
+                                    return` <option value=${category.id}>${category.title}</option>`
+                                }).join('')}
                                 </select>
-                            </form>
-                            <p>${archive.Note.noteMessage}</p>}).join('')}
+                          
+                            <div id="bookmarkNotes">
+                                loading...
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,8 @@ const store = new SequelizeStore({db: db.sequelize })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const notesRouter = require('./routes/notes');
-const categoryRouter = require('./routes/catergory')
+const categoryRouter = require('./routes/catergory');
+const apiRouter = require('./routes/api');
 var app = express();
 
 app.engine('html', es6Renderer)
@@ -41,6 +42,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/notes', notesRouter);
 app.use('/category', categoryRouter)
+app.use('/api', apiRouter);
 
 
 module.exports = app;

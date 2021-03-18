@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Archive.init({
     title: {
-      type:DataTypes.STRING,
-      unique:true
+      type:DataTypes.STRING
     },
     public: DataTypes.BOOLEAN
   }, {
